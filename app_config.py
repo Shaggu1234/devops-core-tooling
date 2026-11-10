@@ -1,2 +1,2 @@
 APP_NAME = "DevOps Core Tooling"
-FEATURE = "authentication"
+FEATURES = ["authentication", "logging"]
