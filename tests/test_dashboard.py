@@ -2,6 +2,9 @@
 from dashboard import get_user_dashboard
 
 
+def test_demo_failure():
+    assert 1 == 2
+
 def test_get_user_dashboard():
     result = get_user_dashboard("Admin")
 
