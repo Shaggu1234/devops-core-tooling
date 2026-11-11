@@ -1,0 +1,51 @@
+
+# Workflow name displayed in the GitHub Actions tab
+name: Python CI Pipeline
+
+# Run this workflow when code is pushed to main
+# or when a Pull Request targets main
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+# Jobs executed by GitHub Actions
+jobs:
+  build:
+    name: Python CI
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download repository source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install Python 3.11
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # Step 3: Upgrade pip
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      # Step 4: Install project dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Step 5: Run Python linting
+      - name: Run flake8
+        run: flake8 . --count --max-line-length=127 --statistics
+
+      # Step 6: Execute unit tests
+      - name: Run pytest
+        run: python -m pytest -v
+        env:
+          PYTHONPATH: .

@@ -6,5 +6,6 @@ def get_user_dashboard(user_name):
     }
     return user_dashboard
 
+
 if __name__ == "__main__":
     print(get_user_dashboard("Admin"))
